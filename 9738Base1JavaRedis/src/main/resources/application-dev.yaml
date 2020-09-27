@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path:
+spring:
+
+  redis:
+    host: localhost
+    port: 6379
+
+  thymeleaf:
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+    cache: false
+  resources:
+    static-locations: file:src/main/resources/static/
+
+  jackson:
+    serialization:
+      indent_output: true
+      fail-on-empty-beans: false
+
+
