@@ -1,6 +1,6 @@
 package web.app.pavelk.message4.base1.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,14 +14,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-public class Main {
+@AllArgsConstructor
+public class MainController {
 
-    private StudentRepository studentRepository;
-
-    @Autowired
-    public void setStudentRepository(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private final StudentRepository studentRepository;
 
     @GetMapping("/")
     public Student getG() {
@@ -30,7 +26,9 @@ public class Main {
 
     @GetMapping("/s")
     public Student getSave() {
-        Student student = Student.builder().id("Eng2015001").name("John Doe").gender(Student.Gender.MALE).grade(1).build();
+        Student student = Student.builder()
+                .id("Eng2015001").name("John Doe").gender(Student.Gender.MALE).grade(1)
+                .build();
         return studentRepository.save(student);
     }
 
@@ -48,8 +46,12 @@ public class Main {
 
     @GetMapping("/ss")
     public Iterable<Student> getSave2() {
-        Student student1 = Student.builder().id("Eng2015001").name("John Doe").gender(Student.Gender.MALE).grade(1).build();
-        Student student2 = Student.builder().id("Med2015001").name("Gareth Houston").gender(Student.Gender.MALE).grade(2).build();
+        Student student1 = Student.builder()
+                .id("Eng2015001").name("John Doe").gender(Student.Gender.MALE).grade(1)
+                .build();
+        Student student2 = Student.builder()
+                .id("Med2015001").name("Gareth Houston").gender(Student.Gender.MALE).grade(2)
+                .build();
         List<Student> list = new ArrayList<>();
         list.add(student1);
         list.add(student2);
@@ -62,8 +64,9 @@ public class Main {
     }
 
     @ExceptionHandler
-    public ResponseEntity<?> handleException(NoSuchElementException exc) {
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> handleException(NoSuchElementException e) {
+        System.out.println(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }

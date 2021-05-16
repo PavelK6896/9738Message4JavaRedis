@@ -11,7 +11,7 @@ public class Receiver {
     private final CountDownLatch countDownLatch;
 
     public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">");
+        System.out.println("Received <" + message + ">" + countDownLatch.getCount());
         countDownLatch.countDown();//+1 старт
     }
 

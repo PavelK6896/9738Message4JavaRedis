@@ -13,21 +13,17 @@ import web.app.pavelk.message4.broker1.bean.Receiver;
 import java.util.concurrent.CountDownLatch;
 
 @Configuration
-public class Application {
-
+public class ApplicationConfig {
 
     @Bean
-    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+    RedisMessageListenerContainer container(RedisConnectionFactory redisConnectionFactory,
                                             MessageListenerAdapter listenerAdapter) {
-
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         //подключение по уолчанию порт 6379
-        container.setConnectionFactory(connectionFactory);
-
+        redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
         //регистрация обработчика с темой chat
-        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
-
-        return container;
+        redisMessageListenerContainer.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+        return redisMessageListenerContainer;
     }
 
     //адаптер для получения сообщения
@@ -44,7 +40,7 @@ public class Application {
     }
 
     @Bean
-    CountDownLatch latch() {
+    CountDownLatch latch() {//защелка
         return new CountDownLatch(1);
     }
 

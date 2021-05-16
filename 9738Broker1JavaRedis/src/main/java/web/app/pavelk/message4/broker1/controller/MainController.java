@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 
 @RestController
 @AllArgsConstructor
-public class Main {
+public class MainController {
 
     private final StringRedisTemplate stringRedisTemplate;
     private final CountDownLatch countDownLatch;
